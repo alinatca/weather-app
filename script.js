@@ -27,52 +27,52 @@ weatherDisplay(city);
 });
 
 
-// function weatherDisplay(city) {
-// $.ajax({
-//   url: queryURL,
-//   method: "GET",
-// }).then(function(response) {
-//   // Create a new table row element
-//   var tRow = $("<tr>");
+function weatherDisplay(city) {
+$.ajax({
+  url: queryURL,
+  method: "GET",
+}).then(function(response) {
+  // Create a new table row element
+  var tRow = $("<tr>");
 
-//   // Methods run on jQuery selectors return the selector they we run on
-//   // This is why we can create and save a reference to a td in the same statement we update its text
-//   var titleTd = $("<td>").text(response.name);
-//   var yearTd = $("<td>").text(response.weather); 
+  // Methods run on jQuery selectors return the selector they we run on
+  // This is why we can create and save a reference to a td in the same statement we update its text
+  var titleTd = $("<td>").text(response.name);
+  var yearTd = $("<td>").text(response.weather); 
     
-//   // Append the newly created table data to the table row
-//   tRow.append(titleTd, yearTd);
-//   // Append the table row to the table body
-//   $("#testing").append(tRow);
-// });
-// }
+  // Append the newly created table data to the table row
+  tRow.append(titleTd, yearTd);
+  // Append the table row to the table body
+  $("#testing").append(tRow);
+});
+}
 
 
-// console.log(geocodingQueryURL);
+console.log(geocodingQueryURL);
 
-//   var history = JSON.parse(localStorage.getItem("history")) || [];
+  var history = JSON.parse(localStorage.getItem("history")) || [];
 
-//   //sets history array search to correct length
-//   if (history.length > 0) {
-//     weather(history[history.length - 1]);
-//   }
-//   //makes a row for each element in history array(searchTerms)
-//   for (var i = 0; i < history.length; i++) {
-//     displayHistory(history[i]);
-//   }
+  //sets history array search to correct length
+  if (history.length > 0) {
+    weather(history[history.length - 1]);
+  }
+  //makes a row for each element in history array(searchTerms)
+  for (var i = 0; i < history.length; i++) {
+    displayHistory(history[i]);
+  }
 
-//   //puts the searched cities underneath the previous searched city 
-//   function displayHistory(btn) {
-//     var cityButton = $("<button>");
-//     cityButton.addClass("btn btn-secondary btn-block");
-//     $("#history").append(cityButton);
-//   }
+  //puts the searched cities underneath the previous searched city 
+  function displayHistory(btn) {
+    var cityButton = $("<button>");
+    cityButton.addClass("btn btn-secondary btn-block");
+    $("#history").append(cityButton);
+  }
 
-//   //listener for list item on click function
-//   $("#history").on("click", ".btn", function () {
-//     weather($(this).text());
-//     forecast($(this).text());
-//   });
+  //listener for list item on click function
+  $("#history").on("click", ".btn", function () {
+    weather($(this).text());
+    forecast($(this).text());
+  });
 
 
   function weatherDisplay(city) {
