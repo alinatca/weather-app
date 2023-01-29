@@ -2,38 +2,80 @@
 
 // Add your own API key between the ""
 var APIKey = "46712b3330b632c9045a61a4c26533fd";
-// var city = "london"; - the API is working when I add a string
+// the API is working when I add a string
+var city = "london"; 
 // Here we are building the URL we need to query the database
 // var geocodingQueryURL =  "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+console.log(queryURL);
+
+("#search-button").on("click", function (event) {
+  event.preventDefault();
+  $("#today").empty();
+  $("#forecast").empty();
+
+
+  // Getting the value in
+  var city = $("#search-input").val().trim();
+
+  // Empty input field
+  $("#search-input").val(""); 
+
+  
+forecast(city);
+weatherDisplay(city);
+});
+
+
+// function weatherDisplay(city) {
+// $.ajax({
+//   url: queryURL,
+//   method: "GET",
+// }).then(function(response) {
+//   // Create a new table row element
+//   var tRow = $("<tr>");
+
+//   // Methods run on jQuery selectors return the selector they we run on
+//   // This is why we can create and save a reference to a td in the same statement we update its text
+//   var titleTd = $("<td>").text(response.name);
+//   var yearTd = $("<td>").text(response.weather); 
+    
+//   // Append the newly created table data to the table row
+//   tRow.append(titleTd, yearTd);
+//   // Append the table row to the table body
+//   $("#testing").append(tRow);
+// });
+// }
+
 
 // console.log(geocodingQueryURL);
 
-  var history = JSON.parse(localStorage.getItem("history")) || [];
+//   var history = JSON.parse(localStorage.getItem("history")) || [];
 
-  //sets history array search to correct length
-  if (history.length > 0) {
-    weather(history[history.length - 1]);
-  }
-  //makes a row for each element in history array(searchTerms)
-  for (var i = 0; i < history.length; i++) {
-    displayHistory(history[i]);
-  }
+//   //sets history array search to correct length
+//   if (history.length > 0) {
+//     weather(history[history.length - 1]);
+//   }
+//   //makes a row for each element in history array(searchTerms)
+//   for (var i = 0; i < history.length; i++) {
+//     displayHistory(history[i]);
+//   }
 
-  //puts the searched cities underneath the previous searched city 
-  function displayHistory(btn) {
-    var cityButton = $("<button>");
-    cityButton.addClass("btn btn-secondary btn-block");
-    $("#history").append(cityButton);
-  }
+//   //puts the searched cities underneath the previous searched city 
+//   function displayHistory(btn) {
+//     var cityButton = $("<button>");
+//     cityButton.addClass("btn btn-secondary btn-block");
+//     $("#history").append(cityButton);
+//   }
 
-  //listener for list item on click function
-  $("#history").on("click", ".btn", function () {
-    weather($(this).text());
-    forecast($(this).text());
-  });
+//   //listener for list item on click function
+//   $("#history").on("click", ".btn", function () {
+//     weather($(this).text());
+//     forecast($(this).text());
+//   });
 
 
-  function weather(city) {
+  function weatherDisplay(city) {
 
     $.ajax({
       method: "GET",
@@ -110,13 +152,13 @@ url: "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=4671
 
 }
 
-//search button 
-$("#search-button").on("click", function(event) {
-  //store the user input in a var
-var city = $("#search-input").val().trim();
-//make input field empty
-$("#search-input").val("");
-//add both functions so they can be displayed on the page
-    weather(city);
-    forecast(city);  
-  });
+// //search button 
+// $("#search-button").on("click", function(event) {
+//   //store the user input in a var
+// var city = $("#search-input").val().trim();
+// //make input field empty
+// $("#search-input").val("");
+// //add both functions so they can be displayed on the page
+//     weather(city);
+//     forecast(city);  
+//   });
