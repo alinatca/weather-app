@@ -45,17 +45,23 @@ function forecastDisplay(city) {
     method: "GET",
   }).then(function(response) {
 
+  
+    // $("#forecast").html("<h4 class=\"mt-3\">5-Day Forecast:</h4>").append("<div class=\"row\">");
+    var h2El = $("<h2>").text("5-Day Forecast:");
+    var forecastRow = $("<div>").addClass("row col-md-12 title-forecast");
     $("#forecast").empty();
-    $("#forecast").html("<h4 class=\"mt-3\">5-Day Forecast:</h4>").append("<div class=\"row\">");
 
+    $("#forecast").append(h2El);
+
+    $("#forecast").append(forecastRow);
 
     for (var i = 0; i < response.list.length; i++) {
   
       if (response.list[i].dt_txt.indexOf("15:00:00") !== -1) {
   
-        var titleFive = $("<h2>").addClass("card-title").text(new Date(response.list[i].dt_txt).toLocaleDateString());
+        var titleFive = $("<h4>").addClass("card-title").text(new Date(response.list[i].dt_txt).toLocaleDateString());
         var imgFive = $("<img>").attr("src", "https://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
-        var colFive = $("<div>").addClass("col-md-4");
+        var colFive = $("<div>").addClass("col-md-2.5 card-box");
         var cardFive = $("<div>").addClass("card text-white forecast-box");
         var cardBodyFive = $("<div>").addClass("card-body p-2");
         var humidFive = $("<p>").addClass("card-text").text("Humidity: " + response.list[i].main.humidity + "%");

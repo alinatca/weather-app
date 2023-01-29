@@ -3,12 +3,16 @@ body {
 }
 
 .forecast-box {
- background-color: #344E41;
+ background-color: #3A5A40;
  color: white;
  border: solid 2px white;
+ 
   
 }
 
+.card-box {
+    margin: 0.5%;
+}
 .weather-box {
 
 background-color: white;
@@ -32,3 +36,8 @@ background-color: #3A5A40;
   #search-input {
 border: solid, 2px, #588157;
   }
+  #forecast {
+    padding-left: 1.5%;
+  }
+
+ 
