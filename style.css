@@ -1,43 +1,38 @@
 body {
-    background-color: #DAD7CD;
+  background-color: #dad7cd;
 }
 
 .forecast-box {
- background-color: #3A5A40;
- color: white;
- border: solid 2px white;
- 
-  
+  background-color: #3a5a40;
+  color: white;
+  border: solid 2px white;
 }
 
 .card-box {
-    margin: 0.5%;
+  margin: 0.5%;
 }
 .weather-box {
-
-background-color: white;
-border: solid 2px #344E41;
+  background-color: white;
+  border: solid 2px #344e41;
 }
 
 .header {
-background-color: #3A5A40;
+  background-color: #3a5a40;
 }
 
-.mt-1, .my-1 {
-    margin-top: 1.25rem !important;
-    
-  }
+.mt-1,
+.my-1 {
+  margin-top: 1.25rem !important;
+}
 
-  .button-style {
-    background-color: #A3B18A;
-    color: white;
-  }
+.button-style {
+  background-color: #a3b18a;
+  color: white;
+}
 
-  #search-input {
-border: solid, 2px, #588157;
-  }
-  #forecast {
-    padding-left: 1.5%;
-  }
-
- 
+#search-input {
+  border: solid, 2px, #588157;
+}
+#forecast {
+  padding-left: 1.5%;
+}

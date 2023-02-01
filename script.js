@@ -1,37 +1,38 @@
-// Add your own API key between the ""
+// Add API Key
 var APIKey = "46712b3330b632c9045a61a4c26533fd";
-// the API is working when I add a string
-// var city = "london";
-// Here we are building the URL we need to query the database
 
+// function to display current weather
 function weatherDisplay(city) {
+  // Create queryURL by combining API endpoint, city and APIKey
   var queryURL =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     city +
     "&appid=" +
     APIKey;
+  // make ajax request to retrieve weather data
   $.ajax({
     url: queryURL,
     method: "GET",
   }).then(function (response) {
+    // Log the response to check if data is received
     console.log(response);
+    // If city is not in storedHistory, add it
     if (storedHistory.indexOf(city) === -1) {
-  
       storedHistory.push(city);
       localStorage.setItem("storedHistory", JSON.stringify(storedHistory));
       displayHistory(city);
-
     }
-
+    // Clear any existing data in #today
     $("#today").empty();
 
-    // var currentDate = moment().format("MMMM Do YYYY");
-    var title = $("<h3>").addClass("card-title").text(response.name + " (" + moment().format("Do MMMM YYYY") + ")" );
+    // Create variables for displaying weather data
+    var title = $("<h3>")
+      .addClass("card-title")
+      .text(response.name + " (" + moment().format("Do MMMM YYYY") + ")");
     var img = $("<img>").attr(
       "src",
       "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png"
     );
-
     var card = $("<div>").addClass("card weather-box");
     var cardBody = $("<div>").addClass("card-body");
     var wind = $("<p>")
@@ -43,38 +44,46 @@ function weatherDisplay(city) {
     var temp = $("<p>")
       .addClass("card-text")
       .text("Temperature: " + response.main.temp + " K");
-    console.log(response);
 
+    // Merge variables and append to #today
     title.append(img);
     cardBody.append(title, temp, humid, wind);
     card.append(cardBody);
-    $("#today").append(card);
-    console.log(response);
+    $("#today").append(card);    
   });
 }
 
-//Function Forecast 5 days
+// function to display 5-day forecast
 function forecastDisplay(city) {
+  // Create queryURL by combining API endpoint, city and APIKey
   var queryURL =
     "https://api.openweathermap.org/data/2.5/forecast?q=" +
     city +
     "&appid=" +
     APIKey;
+
+  // make ajax request to retrieve weather data
   $.ajax({
     url: queryURL,
     method: "GET",
   }).then(function (response) {
-    // $("#forecast").html("<h4 class=\"mt-3\">5-Day Forecast:</h4>").append("<div class=\"row\">");
+
+    // Create header for 5-day forecast
     var h2El = $("<h2>").text("5-Day Forecast:");
     var forecastRow = $("<div>").addClass("row col-md-12 title-forecast");
+    
+    // Clear any existing data in #forecast
     $("#forecast").empty();
 
+    // Append header to #forecast
     $("#forecast").append(h2El);
-
     $("#forecast").append(forecastRow);
 
+    // Loop through the response data and display 5-day forecast
     for (var i = 0; i < response.list.length; i++) {
+      // Check if the time is 3:00 PM
       if (response.list[i].dt_txt.indexOf("15:00:00") !== -1) {
+        // Create elements for each day of the 5-day forecast
         var titleFive = $("<h4>")
           .addClass("card-title")
           .text(new Date(response.list[i].dt_txt).toLocaleDateString());
@@ -97,13 +106,19 @@ function forecastDisplay(city) {
           .addClass("card-text")
           .text("Temperature: " + response.list[i].main.temp + " °F");
 
-        //merge together and put on page
+        // Merge variables and append to #forecast
         colFive.append(
           cardFive.append(
-            cardBodyFive.append(titleFive, imgFive, tempFive, windFive, humidFive)
+            cardBodyFive.append(
+              titleFive,
+              imgFive,
+              tempFive,
+              windFive,
+              humidFive
+            )
           )
         );
-        //append card to column, body to card, and other elements to body
+       
         $("#forecast .row").append(colFive);
       }
     }
@@ -112,50 +127,50 @@ function forecastDisplay(city) {
 
 //Search button function
 $("#search-button").on("click", function (event) {
+  // Prevent default form submission behavior
   event.preventDefault();
+  // Clear the existing data in #today and #forecast
   $("#today").empty();
   $("#forecast").empty();
 
-  // Getting the value in
+  // Get the value of the city entered in the search input
   var city = $("#search-input").val().trim();
 
-  // Empty input field
+  // Empty the search input field
   $("#search-input").val("");
 
-  // forecast(city);
+  // Call the weatherDisplay and forecastDisplay functions with the city as argument
   weatherDisplay(city);
   forecastDisplay(city);
 });
 
-
+// Get stored history from local storage, or set it to an empty array
 var storedHistory = JSON.parse(localStorage.getItem("storedHistory")) || [];
 
+// If there is stored history, call the weatherDisplay function with the last item in the array
 if (storedHistory.length > 0) {
   weatherDisplay(storedHistory[storedHistory.length - 1]);
 }
-
+// Loop through the stored history and call the displayHistory function with each item in the array
 for (var i = 0; i < storedHistory.length; i++) {
-    
-    // Appends the row to history div
-    displayHistory(storedHistory[i]);
+  // Appends the row to history div
+  displayHistory(storedHistory[i]);
 }
 
-// Function for displaying history
+// Function to display the stored history
 function displayHistory(btn) {
-   
-  
-    // Looping through the array of stored history
-  
-    var cityButton = $("<button>");
-  
-    cityButton.addClass("btn btn-block button-style");
-    // cityBtn.attr("data-name", storedHistory[i]);
-    cityButton.text(btn);
-    $("#history").append(cityButton);
-  }
-  
-    // Listener for button on click function
-    $("#history").on("click", ".btn", function () {
-      weatherDisplay($(this).text());
-      forecastDisplay($(this).text());
-    });
+
+  // Create a button element with class and text
+  var cityButton = $("<button>").addClass("btn btn-block button-style").text(btn);  
+
+  // Append the button to the history div
+  $("#history").append(cityButton);
+}
+
+
+// Add click listener to the history div for dynamically created buttons
+$("#history").on("click", ".btn", function () {
+  // Call the weatherDisplay and forecastDisplay functions with the text of the clicked button as argument
+  weatherDisplay($(this).text());
+  forecastDisplay($(this).text());
+});
