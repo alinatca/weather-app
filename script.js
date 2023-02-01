@@ -90,6 +90,9 @@ function forecastDisplay(city) {
         var humidFive = $("<p>")
           .addClass("card-text")
           .text("Humidity: " + response.list[i].main.humidity + "%");
+        var windFive = $("<p>")
+          .addClass("card-text")
+          .text("Wind: " + response.list[i].wind.speed + " °F");
         var tempFive = $("<p>")
           .addClass("card-text")
           .text("Temperature: " + response.list[i].main.temp + " °F");
@@ -97,7 +100,7 @@ function forecastDisplay(city) {
         //merge together and put on page
         colFive.append(
           cardFive.append(
-            cardBodyFive.append(titleFive, imgFive, tempFive, humidFive)
+            cardBodyFive.append(titleFive, imgFive, tempFive, windFive, humidFive)
           )
         );
         //append card to column, body to card, and other elements to body
