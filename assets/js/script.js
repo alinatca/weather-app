@@ -49,7 +49,7 @@ function weatherDisplay(city) {
     title.append(img);
     cardBody.append(title, temp, humid, wind);
     card.append(cardBody);
-    $("#today").append(card);    
+    $("#today").append(card);
   });
 }
 
@@ -67,11 +67,10 @@ function forecastDisplay(city) {
     url: queryURL,
     method: "GET",
   }).then(function (response) {
-
     // Create header for 5-day forecast
     var h2El = $("<h2>").text("5-Day Forecast:");
     var forecastRow = $("<div>").addClass("row col-md-12 title-forecast");
-    
+
     // Clear any existing data in #forecast
     $("#forecast").empty();
 
@@ -118,7 +117,7 @@ function forecastDisplay(city) {
             )
           )
         );
-       
+
         $("#forecast .row").append(colFive);
       }
     }
@@ -159,14 +158,14 @@ for (var i = 0; i < storedHistory.length; i++) {
 
 // Function to display the stored history
 function displayHistory(btn) {
-
   // Create a button element with class and text
-  var cityButton = $("<button>").addClass("btn btn-block button-style").text(btn);  
+  var cityButton = $("<button>")
+    .addClass("btn btn-block button-style")
+    .text(btn);
 
   // Append the button to the history div
   $("#history").append(cityButton);
 }
-
 
 // Add click listener to the history div for dynamically created buttons
 $("#history").on("click", ".btn", function () {
