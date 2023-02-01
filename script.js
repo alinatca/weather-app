@@ -25,7 +25,8 @@ function weatherDisplay(city) {
 
     $("#today").empty();
 
-    var title = $("<h3>").addClass("card-title").text(response.name);
+    // var currentDate = moment().format("MMMM Do YYYY");
+    var title = $("<h3>").addClass("card-title").text(response.name + " (" + moment().format("Do MMMM YYYY") + ")" );
     var img = $("<img>").attr(
       "src",
       "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png"
