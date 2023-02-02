@@ -43,7 +43,7 @@ function weatherDisplay(city) {
       .text("Humidity: " + response.main.humidity + " %");
     var temp = $("<p>")
       .addClass("card-text")
-      .text("Temperature: " + response.main.temp + " K");
+      .text("Temperature: " + Math.round(response.main.temp - 273.15) + " °C");
 
     // Merge variables and append to #today
     title.append(img);
@@ -100,10 +100,10 @@ function forecastDisplay(city) {
           .text("Humidity: " + response.list[i].main.humidity + "%");
         var windFive = $("<p>")
           .addClass("card-text")
-          .text("Wind: " + response.list[i].wind.speed + " °F");
+          .text("Wind: " + response.list[i].wind.speed + " MPH");
         var tempFive = $("<p>")
           .addClass("card-text")
-          .text("Temperature: " + response.list[i].main.temp + " °F");
+          .text("Temperature: " + Math.round(response.list[i].main.temp - 273.15) + " °C");
 
         // Merge variables and append to #forecast
         colFive.append(
