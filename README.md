@@ -28,7 +28,7 @@ Here is the live URL: [https://alinatca.github.io/weather-app/](https://alinatca
 
 Here is a gif of the application: 
 
-![website-layout](assets/images/Weather%20Dashboard.gif
+![website-layout](assets/images/Weather%20Dashboard.gif)
 
 ## You can reach me at:
 
